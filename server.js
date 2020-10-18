@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 // get the schema for workout and exercise table
-const db = require('./models');
+const db = require('./model');
 
 // middleware for the logger
 app.use(logger('dev'));
@@ -35,11 +35,11 @@ mongoose.connection.on('connected', () => {
 });
 
 // Set the route
-const htmlRoute = require('./route/htmlRoute');
-const apiRoute = require('./route/apiRoute');
+// const htmlRoute = require('./route/htmlRoute');
+// const apiRoute = require('./route/apiRoute');
 
-app.use(apiRoute);
-app.use(htmlRoute);
+// app.use(apiRoute);
+// app.use(htmlRoute);
 
 // listen to the port
 app.listen(PORT, () => {
