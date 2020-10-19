@@ -5,6 +5,8 @@ const express = require('express');
 const logger = require('morgan');
 // use mongoose for the conneting and using mongo database
 const mongoose = require('mongoose');
+// activate the dotenv
+require('dotenv').config();
 // Sets up the Express App and PORT for Frontend
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -22,12 +24,9 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // connection to mongo database
-mongoose.connect(
-	process.env.MONGODB_URI || 'mongodb://localhost/fitnesstrackerdb',
-	{
-		useNewUrlParser: true,
-	}
-);
+mongoose.connect('mongodb://localhost/fitnesstrackerdb', {
+	useNewUrlParser: true,
+});
 
 // verify the connection
 mongoose.connection.on('connected', () => {

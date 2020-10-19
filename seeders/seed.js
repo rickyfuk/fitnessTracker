@@ -1,8 +1,15 @@
 let mongoose = require('mongoose');
 let db = require('../model');
+require('dotenv').config();
+
+console.log(process.env);
+console.log(process.env.NODE_ENV);
+console.log(process.env.DB_NAME);
+console.log(process.env.DB_PASS);
 
 mongoose.connect(
-	process.env.MONGODB_URI || 'mongodb://localhost/fitnesstrackerdb',
+	// process.env.MONGODB_URI || 'mongodb://localhost/fitnesstrackerdb',
+	`mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@cluster0.stmxy.mongodb.net/fitnesstrackerdb?retryWrites=true&w=majority`,
 	{
 		useNewUrlParser: true,
 		useFindAndModify: false,
