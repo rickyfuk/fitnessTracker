@@ -66,6 +66,12 @@ let workoutSeed = [
 				duration: 25,
 				distance: 4,
 			},
+			{
+				type: 'cardio',
+				name: 'Swimming',
+				duration: 30,
+				distance: 4,
+			},
 		],
 	},
 	{
@@ -130,6 +136,12 @@ let workoutSeed = [
 				weight: 300,
 				reps: 10,
 				sets: 4,
+			},
+			{
+				type: 'cardio',
+				name: 'Swimming',
+				duration: 30,
+				distance: 4,
 			},
 		],
 	},

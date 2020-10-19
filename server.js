@@ -24,9 +24,13 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // connection to mongo database
-mongoose.connect('mongodb://localhost/fitnesstrackerdb', {
-	useNewUrlParser: true,
-});
+mongoose.connect(
+	// 'mongodb://localhost/fitnesstrackerdb'
+	`mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@cluster0.stmxy.mongodb.net/fitnesstrackerdb?retryWrites=true&w=majority`,
+	{
+		useNewUrlParser: true,
+	}
+);
 
 // verify the connection
 mongoose.connection.on('connected', () => {
