@@ -2,8 +2,8 @@ let mongoose = require('mongoose');
 let db = require('../model');
 require('dotenv').config();
 
-console.log(process.env);
-console.log(process.env.NODE_ENV);
+// console.log(process.env);
+// console.log(process.env.NODE_ENV);
 console.log(process.env.DB_NAME);
 console.log(process.env.DB_PASS);
 

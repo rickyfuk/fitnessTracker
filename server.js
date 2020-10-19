@@ -35,9 +35,9 @@ mongoose.connection.on('connected', () => {
 
 // Set the route
 const htmlRoute = require('./route/htmlRoute');
-// const apiRoute = require('./route/apiRoute');
+const apiRoute = require('./route/apiRoute');
 
-// app.use(apiRoute);
+app.use(apiRoute);
 app.use(htmlRoute);
 
 // listen to the port

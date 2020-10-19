@@ -20,7 +20,18 @@ const WorkoutSchema = new Schema({
 			reps: Number,
 		},
 	],
+	totalDuration: Number,
 });
+
+WorkoutSchema.methods.findTotalDuration = function () {
+	let result = 0;
+	for (let i = 0; i < this.exercises.length; i++) {
+		result = result + this.exercises[i].duration;
+	}
+	console.log(result);
+	this.totalDuration = result;
+	return this.totalDuration;
+};
 
 const Workout = mongoose.model('Workout', WorkoutSchema);
 
