@@ -8,8 +8,12 @@ const router = express.Router();
 router.get('/api/workouts', (req, res) => {
 	Workout.find({})
 		.then((dbWorkout) => {
-			// const workout = new Workout(dbWorkout);
-			// workout.findTotalDuration();
+			// test 1
+			for (let i = 0; i < dbWorkout.length; i++) {
+				const workout = new Workout(dbWorkout[i]);
+				workout.findTotalDuration();
+			}
+			// test 1 end
 			res.json(dbWorkout);
 		})
 		.catch((err) => {
@@ -22,7 +26,8 @@ router.put('/api/workouts/:id', ({ body, params }, res) => {
 	Workout.findOneAndUpdate(
 		{ _id: params.id },
 		{ $push: { exercises: body } },
-		// "runValidators" will ensure new exercises meet our schema requirements
+		// 'new' will return the update document
+		// 'runValidators' will ensure new exercises meet our schema requirements
 		{ new: true, runValidators: true }
 	)
 		.then((dbWorkout) => {

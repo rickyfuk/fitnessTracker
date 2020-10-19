@@ -21,34 +21,40 @@ const WorkoutSchema = new Schema(
 				reps: Number,
 			},
 		],
-		totalduration: Number,
-	},
-	{
-		toJSON: {
-			virtuals: true,
-		},
+		// test 1
+		totalDuration: Number,
+		// test 2
+		// totalduration: Number,
 	}
+	// test 2
+	// {
+	// 	toJSON: {
+	// 		virtuals: true,
+	// 	},
+	// }
 );
 
-// WorkoutSchema.methods.findTotalDuration = function () {
+// test 1
+WorkoutSchema.methods.findTotalDuration = function () {
+	let result = 0;
+	for (let i = 0; i < this.exercises.length; i++) {
+		result = result + this.exercises[i].duration;
+	}
+	console.log('total Duration ' + result);
+	this.totalDuration = result;
+	return this.totalDuration;
+};
+
+// test 2
+// WorkoutSchema.virtual('totalDuration').get(function () {
 // 	let result = 0;
 // 	for (let i = 0; i < this.exercises.length; i++) {
 // 		result = result + this.exercises[i].duration;
 // 	}
 // 	console.log('total Duration' + result);
-// 	this.totalDuration = result;
-// 	return this.totalDuration;
-// };
-
-WorkoutSchema.virtual('totalDuration').get(function () {
-	let result = 0;
-	for (let i = 0; i < this.exercises.length; i++) {
-		result = result + this.exercises[i].duration;
-	}
-	console.log('total Duration' + result);
-	this.totalduration = result;
-	return this.totalduration;
-});
+// 	this.totalduration = result;
+// 	return this.totalduration;
+// });
 
 const Workout = mongoose.model('Workout', WorkoutSchema);
 
