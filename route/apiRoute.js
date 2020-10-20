@@ -2,19 +2,30 @@
 const Workout = require('../model/index')['Workout'];
 // use the router
 const express = require('express');
+const { db } = require('../model/workout');
 const router = express.Router();
 
 // get all workout
 router.get('/api/workouts', (req, res) => {
+	let resultWithTotalDuration = [];
+	var date = new Date();
+	// minus 30 day
+	date.setDate(date.getDate() - 30);
 	Workout.find({})
+		.where({ day: { $gt: date } })
+		.limit(7)
 		.then((dbWorkout) => {
 			// test 1
 			for (let i = 0; i < dbWorkout.length; i++) {
 				const workout = new Workout(dbWorkout[i]);
 				workout.findTotalDuration();
+				resultWithTotalDuration.push(workout);
 			}
+			console.log(resultWithTotalDuration);
+			res.json(resultWithTotalDuration);
 			// test 1 end
-			res.json(dbWorkout);
+			// test 2
+			// res.json(dbWorkout);
 		})
 		.catch((err) => {
 			res.status(400).json(err);
@@ -37,4 +48,5 @@ router.put('/api/workouts/:id', ({ body, params }, res) => {
 			res.json(err);
 		});
 });
+
 module.exports = router;
