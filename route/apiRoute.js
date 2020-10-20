@@ -64,4 +64,30 @@ router.post('/api/workouts', (req, res) => {
 		});
 });
 
+// get all workout in last 7 days (for stat)
+router.get('/api/workouts/range', (req, res) => {
+	let resultWithTotalDuration = [];
+	var date = new Date();
+	// minus 7 day
+	date.setDate(date.getDate() - 7);
+	Workout.find({})
+		.where({ day: { $gt: date } })
+		.then((dbWorkout) => {
+			// test 1 - instance method
+			for (let i = 0; i < dbWorkout.length; i++) {
+				const workout = new Workout(dbWorkout[i]);
+				workout.findTotalDuration();
+				resultWithTotalDuration.push(workout);
+			}
+			console.log(resultWithTotalDuration);
+			res.json(resultWithTotalDuration);
+			// test 1 end
+			// test 2 - vistual method
+			// res.json(dbWorkout);
+		})
+		.catch((err) => {
+			res.status(400).json(err);
+		});
+});
+
 module.exports = router;
