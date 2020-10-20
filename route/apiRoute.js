@@ -35,8 +35,8 @@ router.get('/api/workouts', (req, res) => {
 router.put('/api/workouts/:id', ({ body, params }, res) => {
 	console.log('api/workout/:id put call:', body);
 	console.log('api/workout/:id put call id:', params);
-	Workout.findByIdAndUpdate(
-		params.id,
+	Workout.findOneAndUpdate(
+		{ _id: params.id },
 		{ $push: { exercises: body } },
 		// 'new' will return the update document
 		// 'runValidators' will ensure new exercises meet our schema requirements
