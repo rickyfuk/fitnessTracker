@@ -13,9 +13,8 @@ router.get('/api/workouts', (req, res) => {
 	date.setDate(date.getDate() - 30);
 	Workout.find({})
 		.where({ day: { $gt: date } })
-		.limit(7)
 		.then((dbWorkout) => {
-			// test 1
+			// test 1 - instance method
 			for (let i = 0; i < dbWorkout.length; i++) {
 				const workout = new Workout(dbWorkout[i]);
 				workout.findTotalDuration();
@@ -24,7 +23,7 @@ router.get('/api/workouts', (req, res) => {
 			console.log(resultWithTotalDuration);
 			res.json(resultWithTotalDuration);
 			// test 1 end
-			// test 2
+			// test 2 - vistual method
 			// res.json(dbWorkout);
 		})
 		.catch((err) => {
@@ -41,6 +40,17 @@ router.put('/api/workouts/:id', ({ body, params }, res) => {
 		// 'runValidators' will ensure new exercises meet our schema requirements
 		{ new: true, runValidators: true }
 	)
+		.then((dbWorkout) => {
+			res.json(dbWorkout);
+		})
+		.catch((err) => {
+			res.json(err);
+		});
+});
+
+// add a new day for the workout
+router.post('/api/workouts', (req, res) => {
+	Workout.create({})
 		.then((dbWorkout) => {
 			res.json(dbWorkout);
 		})
