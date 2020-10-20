@@ -33,14 +33,17 @@ router.get('/api/workouts', (req, res) => {
 
 // add exercise
 router.put('/api/workouts/:id', ({ body, params }, res) => {
-	Workout.findOneAndUpdate(
-		{ _id: params.id },
+	console.log('api/workout/:id put call:', body);
+	console.log('api/workout/:id put call id:', params);
+	Workout.findByIdAndUpdate(
+		params.id,
 		{ $push: { exercises: body } },
 		// 'new' will return the update document
 		// 'runValidators' will ensure new exercises meet our schema requirements
-		{ new: true, runValidators: true }
+		{ new: true, upsert: true, runValidators: true }
 	)
 		.then((dbWorkout) => {
+			console.log(res.json(dbWorkout));
 			res.json(dbWorkout);
 		})
 		.catch((err) => {
@@ -50,9 +53,10 @@ router.put('/api/workouts/:id', ({ body, params }, res) => {
 
 // add a new day for the workout
 router.post('/api/workouts', (req, res) => {
-	console.log(req.body);
+	console.log('post route: ' + req.body);
 	Workout.create({})
 		.then((dbWorkout) => {
+			console.log('workout create:' + dbWorkout);
 			res.json(dbWorkout);
 		})
 		.catch((err) => {
