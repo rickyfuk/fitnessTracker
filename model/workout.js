@@ -12,10 +12,20 @@ const WorkoutSchema = new Schema(
 			{
 				// type: Schema.Types.ObjectId,
 				// ref: 'Exercise',
-				workoutType: String,
-				name: String,
+				workoutType: {
+					type: String,
+					required: 'Workout Type is Required',
+				},
+				name: {
+					type: String,
+					trim: true,
+					required: 'Workout Name is Required',
+				},
 				distance: Number,
-				duration: Number,
+				duration: {
+					type: Number,
+					required: 'Duration is Required',
+				},
 				weight: Number,
 				sets: Number,
 				reps: Number,
